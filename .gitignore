@@ -1,3 +1,4 @@
 # Compile commands artifacts
 compile_commands.json
-.compile_commands_build/.cache/
+.compile_commands_build/
+.cache/

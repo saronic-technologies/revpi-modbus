@@ -22,7 +22,7 @@ target_link_libraries(${TARGET_MASTER} modbus rt pthread json-c)
 
 set_property(TARGET ${TARGET_MASTER} PROPERTY C_STANDARD 99)
 target_compile_options(${TARGET_MASTER} PRIVATE
-	-Wall -Wextra -Wpedantic -Werror
+  -Wall -Wextra -Wpedantic -Werror -Wno-enum-int-mismatch -Wno-calloc-transposed-args
 )
 
 install(TARGETS ${TARGET_MASTER}
@@ -40,7 +40,7 @@ target_link_libraries(${TARGET_SLAVE} modbus pthread json-c)
 
 set_property(TARGET ${TARGET_SLAVE} PROPERTY C_STANDARD 99)
 target_compile_options(${TARGET_SLAVE} PRIVATE
-	-Wall -Wextra -Wpedantic -Werror
+	-Wall -Wextra -Wpedantic -Werror -Wno-enum-int-mismatch -Wno-calloc-transposed-args
 )
 
 install(TARGETS ${TARGET_SLAVE}

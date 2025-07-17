@@ -10,5 +10,4 @@ project(revpi-modbus LANGUAGES C)
 include(GNUInstallDirs)
 
 add_subdirectory(src)
-add_subdirectory(systemd)
 

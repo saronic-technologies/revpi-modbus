@@ -7,11 +7,34 @@
   };
 
   outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system:
+    let
+      # We can only compile and run this on ARM Linux, as that
+      # is what it is running on, so it expects specific headers and
+      # such
+      supported_systems = [ flake-utils.lib.system.aarch64-linux ];
+    in 
+    flake-utils.lib.eachSystem supported_systems (system:
       let
         pkgs = import nixpkgs { inherit system; };
       in
       {
+        packages.default = pkgs.stdenv.mkDerivation {
+          pname = "revpi-modbus";
+          version = "1.0.0";
+          
+          src = ./.;
+          
+          nativeBuildInputs = with pkgs; [
+            cmake
+            pkg-config
+          ];
+          
+          buildInputs = with pkgs; [
+            libmodbus
+            json_c
+          ];
+        };
+
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             cmake

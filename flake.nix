@@ -63,7 +63,7 @@
           ];
 
           shellHook = ''
-            echo "revpi-modbus development environment"
+            echo "revpi-modbus dev environment"
             echo "Generating compile_commands.json..."
             rm -rf .compile_commands_build
             bear -- cmake -B .compile_commands_build -S .

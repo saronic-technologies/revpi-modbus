@@ -37,6 +37,7 @@
           };
           
           postUnpack = ''
+            echo "Running post unpack phase..."
             cp -r ${piControlSrc} $sourceRoot/piControl
             chmod -R u+w $sourceRoot/piControl
           '';

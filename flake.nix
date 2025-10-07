@@ -36,10 +36,19 @@
             sha256 = "sha256-UODRNcAFp3TeQkWA0WMI74SwayaID3bxNpRm1fo42zw=";
           };
           
-          postUnpack = ''
-            echo "Running post unpack phase..."
-            cp -r ${piControlSrc} $sourceRoot/piControl
-            chmod -R u+w $sourceRoot/piControl
+          postPatch = ''
+            echo "Running post patch phase..."
+            echo ">>> staging piControl into $sourceRoot"
+            rm -rf "./piControl"
+            # symlink is fine (and fast); use cp -r if you prefer a real copy
+            ln -s ${piControlSrc} "./piControl"
+
+            # cp -r ${piControlSrc} $sourceRoot/piControl
+            # chmod -R u+w $sourceRoot/piControl
+
+            # sanity check so configure can’t start without it
+            test -f "./piControl/piTest/piControlIf.c" \
+              || { echo "piControlIf.c missing after staging"; exit 1; }
           '';
           
           nativeBuildInputs = with pkgs; [
